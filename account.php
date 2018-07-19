@@ -27,16 +27,16 @@ echo "
 ";
 echo "<br>";
 
-$consulta = mysql_query("SELECT * FROM mybb_users WHERE email='$email' LIMIT 1");
-$linha = mysql_fetch_array($consulta);
+$consulta = mysqli_query("SELECT * FROM mybb_users WHERE email='$email' LIMIT 1");
+$linha = mysqli_fetch_array($consulta);
 $uid = $linha['uid'];
-$consulta2 = mysql_query("SELECT * FROM mybb_awaitingactivation WHERE uid='$uid' LIMIT 1");
-$linha = mysql_fetch_array($consulta2);
+$consulta2 = mysqli_query("SELECT * FROM mybb_awaitingactivation WHERE uid='$uid' LIMIT 1");
+$linha = mysqli_fetch_array($consulta2);
 echo "$linha[aid]";
 
 
 if(isset($linha["aid"])) {
-	echo "Voce precisa ativar sua conta do fÛrum para criar contas ingame!";
+	echo "Voce precisa ativar sua conta do f√≥rum para criar contas ingame!";
 }
 else {
  if(!isset($_POST["validar"])){ $_POST["validar"] = 1; }
@@ -48,17 +48,17 @@ else {
    $created = date("Y-m-d").' '.date("H:i:s");
    $lastlogin = date("Y-m-d").' '.date("H:i:s");
    $lastip = $_SERVER["REMOTE_ADDR"];
-   $consulta = mysql_query("SELECT * FROM dbsphere.gameaccounts WHERE account='$account'");
-   $resultado = mysql_num_rows($consulta);
+   $consulta = mysqli_query("SELECT * FROM dbsphere.gameaccounts WHERE account='$account'");
+   $resultado = mysqli_num_rows($consulta);
    if($resultado >= 1)
-    echo "<br/>Game Account j· cadastrado, tente outro!<br/><br/>";
+    echo "<br/>Game Account j√° cadastrado, tente outro!<br/><br/>";
    else {
-    $consulta = mysql_query("SELECT * FROM dbsphere.gameaccounts WHERE email = '$email'");
-    $resultado = mysql_num_rows($consulta);
+    $consulta = mysqli_query("SELECT * FROM dbsphere.gameaccounts WHERE email = '$email'");
+    $resultado = mysqli_num_rows($consulta);
     if($resultado >= 6)
-     echo "<br/>SÛ È permitido 6 contas por jogador!<br/><br/>";
+     echo "<br/>S√≥ √© permitido 6 contas por jogador!<br/><br/>";
     else {
-     mysql_query("INSERT INTO dbsphere.gameaccounts (email,account,password,status,created,lastlogin,lastip) VALUES ('$email','$account','$password','0','$created','$lastlogin','$lastip')");
+     mysqli_query("INSERT INTO dbsphere.gameaccounts (email,account,password,status,created,lastlogin,lastip) VALUES ('$email','$account','$password','0','$created','$lastlogin','$lastip')");
      echo "<br/>Cadastro de Game Account efetuado com sucesso!<br/><br/>";
      echo "<br/>Email: ".$email;
      echo "<br/>Game Account: ".$account;
@@ -66,19 +66,19 @@ else {
      echo "<br/>Created: ".$created;
      echo "<br/>Last Login: ".$lastlogin;
      echo "<br/>Last IP: ".$lastip."<br/><br/>";
-     echo "<br/>Sua conta ser· criada em no m·ximo 1 (um) minuto!<br/><br/>";
+     echo "<br/>Sua conta ser√° criada em no m√°ximo 1 (um) minuto!<br/><br/>";
     }
    }
   }
  }
- $consulta = mysql_query("SELECT * FROM dbsphere.siteaccounts WHERE email='$email' LIMIT 1");
- $linha = mysql_fetch_array($consulta);
+ $consulta = mysqli_query("SELECT * FROM dbsphere.siteaccounts WHERE email='$email' LIMIT 1");
+ $linha = mysqli_fetch_array($consulta);
  if($linha["priv"] == 7)
-  echo "<div align='center'>Voce È um Admin</div><br>";
- $consulta = mysql_query("SELECT * FROM dbsphere.gameaccounts WHERE email='$email' LIMIT 3");
- $resultado = mysql_num_rows($consulta);
+  echo "<div align='center'>Voce √© um Admin</div><br>";
+ $consulta = mysqli_query("SELECT * FROM dbsphere.gameaccounts WHERE email='$email' LIMIT 3");
+ $resultado = mysqli_num_rows($consulta);
  if($resultado >= 1) {
-  while($linha = mysql_fetch_array($consulta))
+  while($linha = mysqli_fetch_array($consulta))
    /* echo "Conta: <a href='verconta.php?account=$linha[account]'>$linha[account]<br><br></a>"; */
    echo "Conta: $linha[account]<br><br>";
  } else
