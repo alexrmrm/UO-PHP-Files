@@ -12,23 +12,23 @@ $conexao['pass'] = "";
 $conexao['root'] = "localhost";
 
 $conexao['name'] = "dbsphere";
-//*** Executando a conex„o
+//*** Executando a conex√£o
 
-$conexao['conexao'] = mysql_connect($conexao['root'],$conexao['user'],$conexao['pass'])or die();
+$conexao['conexao'] = mysqli_connect($conexao['root'],$conexao['user'],$conexao['pass'])or die();
 
-mysql_select_db($conexao['name'],$conexao['conexao']);
-
+//mysql_select_db($conexao['name'],$conexao['conexao']);
+mysqli_select_db($conexao['conexao'],$conexao['name']);
 
 if(!isset($_POST['valida'])) { $_POST['valida'] = 0; }
 if ($_POST['valida'] == 1) {
  include("seguranca.php");
- // Verifica se um formul·rio foi enviado
+ // Verifica se um formul√°rio foi enviado
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  // Salva duas vari·veis com o que foi digitado no formul·rio
-  // Detalhe: faz uma verificaÁ„o com isset() pra saber se o campo foi preenchido
+  // Salva duas vari√°veis com o que foi digitado no formul√°rio
+  // Detalhe: faz uma verifica√ß√£o com isset() pra saber se o campo foi preenchido
   $usuario = (isset($_POST['usuario'])) ? $_POST['usuario'] : '';
   $senha = (isset($_POST['senha'])) ? $_POST['senha'] : '';
-  // Utiliza uma funÁ„o criada no seguranca.php pra validar os dados digitados
+  // Utiliza uma fun√ß√£o criada no seguranca.php pra validar os dados digitados
   if (validaUsuario($usuario, $senha) == true)
   {
    /* echo "deu";
@@ -61,7 +61,7 @@ if ($_POST['valida'] == 1) {
 }
 
 
-mysql_select_db("forum",$conexao['conexao']);
+mysqli_select_db($conexao['conexao'],"forum");
 
 
 // your php file contents
