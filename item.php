@@ -133,8 +133,8 @@ echo "<br>
 <div style='font-family: Georgia; font-size: 16px; color:#005ea7; text-align:center;'>Count/Value</div>
 </th>
 </tr>";
-$sql = mysql_query("SELECT * FROM dbsphere.items WHERE $sort ORDER BY NAME ASC");
-while($item = mysql_fetch_array($sql)) {
+$sql = mysqli_query("SELECT * FROM dbsphere.items WHERE $sort ORDER BY NAME ASC");
+while($item = mysqli_fetch_array($sql)) {
 echo "
 <tr>
 <td style='text-align:center; vertical-align:middle; height: 32px;'>
@@ -162,8 +162,8 @@ echo "</div>";
 // BEGIN OF ITEM/ID
 if(($id <> "") AND ($sort == "") AND ($id <> "all")) {
 $item = $id;
-$sql = mysql_query("SELECT * FROM dbsphere.items WHERE DEFNAME='$item'");
-$result = mysql_fetch_array($sql);
+$sql = mysqli_query("SELECT * FROM dbsphere.items WHERE DEFNAME='$item'");
+$result = mysqli_fetch_array($sql);
 echo "
 <fieldset class='breadcrumb' style='margin: -18 0 0 0'>
 	<span class='crumbs'>
@@ -210,8 +210,8 @@ echo "
  </th>
 </tr>
 <br>";
-$sql = mysql_query("SELECT * FROM dbsphere.items WHERE ID = $result[ID] ORDER BY NAME ASC");
-while($item = mysql_fetch_array($sql)) {
+$sql = mysqli_query("SELECT * FROM dbsphere.items WHERE ID = $result[ID] ORDER BY NAME ASC");
+while($item = mysqli_fetch_array($sql)) {
 echo "
 <tr>
 <td style='text-align:center; vertical-align:middle; height: 32px;'>
@@ -233,9 +233,9 @@ echo "
 </table>
 <br>
 <body>";
-$sql = mysql_query("SELECT * FROM dbsphere.items WHERE DEFNAME='$id'");
-$result = mysql_fetch_array($sql);
-if(mysql_num_rows($sql) < 1 )
+$sql = mysqli_query("SELECT * FROM dbsphere.items WHERE DEFNAME='$id'");
+$result = mysqli_fetch_array($sql);
+if(mysqli_num_rows($sql) < 1 )
 echo "Item not found on database. Please report to administrator.";
 else {
 echo "
@@ -320,10 +320,10 @@ title : { text : '$result[3]' },
 series : [{
 name : '$result[3]',
 data : [";
-$sqlb = mysql_query("SELECT * FROM dbsphere.items_history WHERE DEFNAME = '$id' ORDER BY DATE ASC");
-$number = mysql_num_rows($sqlb);
+$sqlb = mysqli_query("SELECT * FROM dbsphere.items_history WHERE DEFNAME = '$id' ORDER BY DATE ASC");
+$number = mysqli_num_rows($sqlb);
 $i = 1;
-while ($row = mysql_fetch_array($sqlb,MYSQL_ASSOC)) {
+while ($row = mysqli_fetch_array($sqlb,MYSQL_ASSOC)) {
 $data = strtotime($row["date"]).'000';
 if($i < $number)
 echo "[$data, $row[amount]],\n";
